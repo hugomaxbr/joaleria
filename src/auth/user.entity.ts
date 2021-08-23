@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 
@@ -8,14 +8,27 @@ export class User extends BaseEntity {
   id: number;
 
   @Column()
-  email: string;
+  name: string;
 
   @Column()
-  name: string;
+  birth_date : Date; 
+
+  @Column()
+  cpf: string;
 
   @Column()
   password: string;
 
+  @Column()
+  email: string;
+
+  @UpdateDateColumn({type : 'timestamptz'})
+  updated_at : Date;
+  
+  @CreateDateColumn({type : "timestamptz"})
+  created_at : Date;
+
+ 
   @Column()
   salt : string;
 
