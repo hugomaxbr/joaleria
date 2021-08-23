@@ -1,25 +1,31 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
+import { AuthCredentialsDto } from './dto/authCredentialsDto';
+import { CreateUserDto } from './dto/CreateUserDto';
+import { ConflictException } from '@nestjs/common';
+import { response } from 'express';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-    async SignUp(email: string, password: string, username: string): Promise<void> {
+    async SignUp(createUserDto : CreateUserDto): Promise<void> {
+        const {email, password, cpf, birth_date, name} = createUserDto;
 
         const user = new User();
-        user.name = username;
+       
+        user.name = name;
+        user.cpf = cpf;
+        user.birth_date= birth_date;
         user.email = email;
         user.salt = await bcrypt.genSalt();
-        user.password = await this.hashPassword(password, user.salt);;
+        user.password = await this.hashPassword(password, user.salt);
 
         try {
-            await user.save();
+            const found = await this.findOne({email : user.email})
+            if(!found)
+                await user.save();
         } catch (error) {
-            const err = error.code; // Adicionar o error code nos logs de uma tabela no MongoDB
-            if (error.code === '23505') {
-                // duplicate username
-                throw new Error('Username already exists');
-            }
+            throw new ConflictException('Email already registered');
         }
     }
 
@@ -31,5 +37,17 @@ export class UserRepository extends Repository<User> {
         return bcrypt.hash(password, salt);
     }
 
+    async validateUserPassword(
+        authCredentialsDto: AuthCredentialsDto
+    ): Promise<string> {
+        const { email, password } = authCredentialsDto;
+        const user = await this.findOne({ email });
+
+        if (user && (await user.validatePassword(password))) {
+            return user.email;
+        } else {
+            return null;
+        }
+    }
 
 }
