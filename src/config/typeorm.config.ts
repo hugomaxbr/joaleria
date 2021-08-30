@@ -1,12 +1,17 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
-export const typeOrmConfig: TypeOrmModuleOptions = {
-  type: 'postgres',
-  host: 'localhost',
+export default {
+  type: "postgres",
+  host: "localhost",
   port: 5432,
-  username: 'postgres',
-  password: 'docker',
-  database: 'estagio',
+  username: "postgres",
+  password: "docker",
+  database: "estagio",
   autoLoadEntities: true,
-  synchronize: true,
-};
+  synchronize: false,
+  logging: true,
+  migrations: ["./src/shared/typeorm/migrations/*.ts"],
+  cli: {
+    migrationsDir: "src/shared/typeorm/migrations",
+  },
+} as TypeOrmModuleOptions;
