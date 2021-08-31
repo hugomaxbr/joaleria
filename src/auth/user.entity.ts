@@ -1,17 +1,41 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import * as bcrypt from 'bcrypt';
-
+import bcrypt from "bcrypt";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import { v4 as uuidV4 } from "uuid";
+import { AccessLevel } from "./access_level/access_level.entity";
+import { Profile } from "./profile/profile.entity";
 
 @Entity()
-export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+class User {
+  @PrimaryColumn()
+  id: string;
 
   @Column()
   name: string;
 
+  @OneToOne(() => Profile)
+  @JoinColumn({ name: "profile_id" })
+  profile: Profile;
+
   @Column()
-  birth_date : Date; 
+  profile_id: string;
+
+  @OneToOne(() => AccessLevel)
+  @JoinColumn({ name: "access_level_id" })
+  access_level: AccessLevel;
+
+  @Column()
+  access_level_id: string;
+
+  @Column()
+  birth_date: Date;
 
   @Column()
   cpf: string;
@@ -22,18 +46,25 @@ export class User extends BaseEntity {
   @Column()
   email: string;
 
-  @UpdateDateColumn({type : 'timestamptz'})
-  updated_at : Date;
-  
-  @CreateDateColumn({type : "timestamptz"})
-  created_at : Date;
+  @UpdateDateColumn()
+  updated_at: Date;
 
- 
+  @CreateDateColumn()
+  created_at: Date;
+
   @Column()
-  salt : string;
+  salt: string;
 
-  async validatePassword(password : string) : Promise<Boolean> {
-    const hash = bcrypt.hash(password, this.salt);
+  constructor() {
+    if (!this.id) {
+      this.id = uuidV4();
+    }
+  }
+
+  async validatePassword(password: string): Promise<Boolean> {
+    const hash = await bcrypt.hash(password, this.salt);
     return hash === this.password;
   }
 }
+
+export { User };
