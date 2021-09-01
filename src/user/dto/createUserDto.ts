@@ -5,8 +5,8 @@ import {
   Matches,
   MaxLength,
   MinLength,
-} from "class-validator";
-import { IsOnlyDate } from "../validators/IsOnlyDate";
+} from 'class-validator';
+import { IsOnlyDate } from '../validators/IsOnlyDate';
 
 export class CreateUserDto {
   @IsString()
@@ -29,7 +29,7 @@ export class CreateUserDto {
   @MinLength(8)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: "Password too weak",
+    message: 'Password too weak',
   })
   password: string;
 }

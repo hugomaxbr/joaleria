@@ -1,7 +1,8 @@
 import { registerDecorator, ValidationOptions } from 'class-validator';
 
 export function IsOnlyDate(validationOptions?: ValidationOptions) {
-  return function(object: Object, propertyName: string) {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  return function (object: Object, propertyName: string) {
     registerDecorator({
       name: 'IsOnlyDate',
       target: object.constructor,
