@@ -8,11 +8,11 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Profile } from "../../profile/entities/profile.entity";
 import { v4 as uuidV4 } from "uuid";
-import { AccessLevel } from "./access_level/access_level.entity";
-import { Profile } from "./profile/profile.entity";
+import { Exclude } from "class-transformer";
 
-@Entity()
+@Entity("users")
 class User {
   @PrimaryColumn()
   id: string;
@@ -27,13 +27,6 @@ class User {
   @Column()
   profile_id: string;
 
-  @OneToOne(() => AccessLevel)
-  @JoinColumn({ name: "access_level_id" })
-  access_level: AccessLevel;
-
-  @Column()
-  access_level_id: string;
-
   @Column()
   birth_date: Date;
 
@@ -41,6 +34,7 @@ class User {
   cpf: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
@@ -53,6 +47,7 @@ class User {
   created_at: Date;
 
   @Column()
+  @Exclude()
   salt: string;
 
   constructor() {

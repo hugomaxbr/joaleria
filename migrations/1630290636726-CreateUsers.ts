@@ -45,10 +45,6 @@ export class CreateUsers1630290636726 implements MigrationInterface {
             type: "uuid",
           },
           {
-            name: "access_level_id",
-            type: "uuid",
-          },
-          {
             name: "updated_at",
             type: "timestamp",
             default: "now()",
@@ -60,14 +56,6 @@ export class CreateUsers1630290636726 implements MigrationInterface {
             referencedTableName: "profiles",
             referencedColumnNames: ["id"],
             columnNames: ["profile_id"],
-            onDelete: "SET NULL",
-            onUpdate: "SET NULL",
-          },
-          {
-            name: "FKUserAccessLevel",
-            referencedTableName: "access_levels",
-            referencedColumnNames: ["id"],
-            columnNames: ["access_level_id"],
             onDelete: "SET NULL",
             onUpdate: "SET NULL",
           },

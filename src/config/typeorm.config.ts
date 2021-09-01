@@ -1,4 +1,6 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { Profile } from "src/profile/entities/profile.entity";
+import { User } from "src/user/entities/user.entity";
 
 export default {
   type: "postgres",
@@ -7,11 +9,10 @@ export default {
   username: "postgres",
   password: "docker",
   database: "estagio",
-  autoLoadEntities: true,
+  entities: [User, Profile],
   synchronize: false,
   logging: true,
-  migrations: ["./src/shared/typeorm/migrations/*.ts"],
   cli: {
-    migrationsDir: "src/shared/typeorm/migrations",
+    migrationsDir: "migrations",
   },
 } as TypeOrmModuleOptions;
