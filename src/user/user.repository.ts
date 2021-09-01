@@ -1,9 +1,9 @@
-import { ConflictException } from "@nestjs/common";
-import { genSalt, hash } from "bcrypt";
-import { EntityRepository, Repository } from "typeorm";
-import { AuthCredentialsDto } from "./dto/authCredentialsDto";
-import { CreateUserDto } from "./dto/createUserDto";
-import { User } from "./entities/user.entity";
+import { ConflictException } from '@nestjs/common';
+import { genSalt, hash } from 'bcrypt';
+import { EntityRepository, Repository } from 'typeorm';
+import { AuthCredentialsDto } from './dto/authCredentialsDto';
+import { CreateUserDto } from './dto/createUserDto';
+import { User } from './entities/user.entity';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
@@ -16,11 +16,11 @@ export class UserRepository extends Repository<User> {
   }
 
   async findById(id: string): Promise<User> {
-    return this.findOne(id);
+    return this.findOne(id, { relations: ['profile'] });
   }
 
   async listAllUsers(): Promise<User[]> {
-    return this.find();
+    return this.find({ relations: ['profile'] });
   }
 
   async createUserAdmin(createUserDto: CreateUserDto): Promise<void> {
@@ -47,7 +47,7 @@ export class UserRepository extends Repository<User> {
     const found = await this.findOne({ email: user.email });
 
     if (found) {
-      throw new ConflictException("Email already registered");
+      throw new ConflictException('Email already registered');
     }
 
     await this.save(user);
@@ -58,7 +58,7 @@ export class UserRepository extends Repository<User> {
   }
 
   async validateUserPassword(
-    authCredentialsDto: AuthCredentialsDto
+    authCredentialsDto: AuthCredentialsDto,
   ): Promise<string> {
     const { email, password } = authCredentialsDto;
     const user = await this.findOne({ email });
