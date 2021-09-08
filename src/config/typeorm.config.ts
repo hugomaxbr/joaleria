@@ -12,8 +12,8 @@ export default {
   entities: [User, Profile],
   synchronize: false,
   logging: true,
-  migrations: ['./migrations/*.ts'],
+  migrations: ['./src/config/migrations/*.ts'],
   cli: {
-    migrationsDir: 'migrations',
+    migrationsDir: './src/config/migrations',
   },
 } as TypeOrmModuleOptions;
