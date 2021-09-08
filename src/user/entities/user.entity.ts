@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 import {
   Column,
   CreateDateColumn,
@@ -7,12 +7,12 @@ import {
   OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { Profile } from "../../profile/entities/profile.entity";
-import { v4 as uuidV4 } from "uuid";
-import { Exclude } from "class-transformer";
+} from 'typeorm';
+import { Profile } from '../../profile/entities/profile.entity';
+import { v4 as uuidV4 } from 'uuid';
+import { Exclude } from 'class-transformer';
 
-@Entity("users")
+@Entity('users')
 class User {
   @PrimaryColumn()
   id: string;
@@ -21,7 +21,7 @@ class User {
   name: string;
 
   @OneToOne(() => Profile)
-  @JoinColumn({ name: "profile_id" })
+  @JoinColumn({ name: 'profile_id' })
   profile: Profile;
 
   @Column()
@@ -56,7 +56,7 @@ class User {
     }
   }
 
-  async validatePassword(password: string): Promise<Boolean> {
+  async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);
     return hash === this.password;
   }

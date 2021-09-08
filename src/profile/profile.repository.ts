@@ -13,4 +13,8 @@ export class ProfileRepository extends Repository<Profile> {
   async listAll(): Promise<Profile[]> {
     return this.find();
   }
+
+  async findOneProfile(id: string): Promise<Profile> {
+    return this.findOne(id);
+  }
 }

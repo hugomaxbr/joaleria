@@ -1,11 +1,4 @@
-import {
-  IsEmail,
-  IsString,
-  IsUUID,
-  Matches,
-  MaxLength,
-  MinLength,
-} from "class-validator";
+import { IsString, MaxLength } from 'class-validator';
 
 export class CreateProfileDto {
   @IsString()

@@ -8,11 +8,13 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createUserDto';
 import { User } from './entities/user.entity';
 import { ListUserByIdDto } from './dto/listUserByIdDto';
+import { UpdateUserDto } from './dto/updateUserDto';
 
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -43,5 +45,13 @@ export class UserController {
     @Param(ValidationPipe) deleteUserByDto: ListUserByIdDto,
   ): Promise<void> {
     await this.userService.delete(deleteUserByDto);
+  }
+
+  @Put(':id')
+  async updateUser(
+    @Param(ValidationPipe) listUserByIdDto: ListUserByIdDto,
+    @Body(ValidationPipe) updateUserDto: UpdateUserDto,
+  ): Promise<void> {
+    await this.userService.update(updateUserDto, listUserByIdDto);
   }
 }

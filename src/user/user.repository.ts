@@ -23,13 +23,12 @@ export class UserRepository extends Repository<User> {
     return this.find({ relations: ['profile'] });
   }
 
-  async createUserAdmin(createUserDto: CreateUserDto): Promise<void> {
-    const user = Object.assign(new User(), createUserDto);
-
-    user.salt = await genSalt();
-    user.password = await this.hashPassword(createUserDto.password, user.salt);
-
+  async createUserAdmin(user: User): Promise<void> {
     await this.save(user);
+  }
+
+  async updateUser(updateUserDto: User): Promise<void> {
+    await this.update(updateUserDto.id, updateUserDto);
   }
 
   async SignUp(createUserDto: CreateUserDto): Promise<void> {

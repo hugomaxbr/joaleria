@@ -4,10 +4,10 @@ import {
   Entity,
   PrimaryColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { v4 as uuidV4 } from "uuid";
+} from 'typeorm';
+import { v4 as uuidV4 } from 'uuid';
 
-@Entity("profiles")
+@Entity('profiles')
 class Profile {
   @PrimaryColumn()
   id: string;
