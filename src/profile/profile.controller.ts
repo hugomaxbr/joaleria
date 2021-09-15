@@ -1,9 +1,18 @@
-import { Controller, Post, Body, ValidationPipe, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  ValidationPipe,
+  Get,
+  ClassSerializerInterceptor,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { CreateProfileDto } from './dto/createProfileDto';
 import { Profile } from './entities/profile.entity';
 
 @Controller('profiles')
+@UseInterceptors(ClassSerializerInterceptor)
 export class ProfileController {
   constructor(private profileService: ProfileService) {}
 
