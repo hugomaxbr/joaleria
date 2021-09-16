@@ -19,7 +19,7 @@ class Product {
   details: string;
 
   @Column()
-  value: number;
+  value: string;
 
   @Column()
   current_quantity: number;

@@ -9,8 +9,8 @@ import { ProductModule } from './product/product.module';
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     UserModule,
-    ProductModule,
     ProfileModule,
+    ProductModule,
   ],
 })
 export class AppModule {}

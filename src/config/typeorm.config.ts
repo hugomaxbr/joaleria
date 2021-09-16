@@ -10,11 +10,11 @@ export default {
   username: 'postgres',
   password: 'docker',
   database: 'estagio',
-  entities: [User, Profile, Product],
+  entities: [User, Product, Profile],
   synchronize: false,
   logging: true,
-  migrations: ['./src/migrations/*.ts'],
+  migrations: [__dirname + '/migrations/**/*.ts'],
   cli: {
-    migrationsDir: './src/migrations',
+    migrationsDir: './src/config/migrations',
   },
 } as TypeOrmModuleOptions;
