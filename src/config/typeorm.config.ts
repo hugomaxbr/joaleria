@@ -10,7 +10,7 @@ export default {
   username: 'postgres',
   password: 'docker',
   database: 'estagio',
-  entities: [User, Profile, Product],
+  entities: [User, Product, Profile],
   synchronize: false,
   logging: true,
   migrations: [__dirname + '/migrations/**/*.ts'],
