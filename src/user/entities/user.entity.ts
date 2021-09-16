@@ -3,14 +3,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Profile } from '../../profile/entities/profile.entity';
 import { v4 as uuidV4 } from 'uuid';
 import { Exclude } from 'class-transformer';
+import { Role } from '../enums/role.enum';
 
 @Entity('users')
 class User {
@@ -20,12 +18,8 @@ class User {
   @Column()
   name: string;
 
-  @OneToOne(() => Profile)
-  @JoinColumn({ name: 'profile_id' })
-  profile: Profile;
-
   @Column()
-  profile_id: number;
+  role: Role;
 
   @Column()
   birth_date: Date;

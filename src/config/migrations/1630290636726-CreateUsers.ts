@@ -41,23 +41,13 @@ export class CreateUsers1630290636726 implements MigrationInterface {
             default: 'now()',
           },
           {
-            name: 'profile_id',
+            name: 'role',
             type: 'int',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
-          },
-        ],
-        foreignKeys: [
-          {
-            name: 'FKUserProfile',
-            referencedTableName: 'profiles',
-            referencedColumnNames: ['id'],
-            columnNames: ['profile_id'],
-            onDelete: 'SET NULL',
-            onUpdate: 'SET NULL',
           },
         ],
       }),

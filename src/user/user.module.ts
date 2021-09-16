@@ -5,10 +5,9 @@ import { AuthService } from './auth.service';
 import { UserRepository } from './user.repository';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { ProfileRepository } from '../profile/profile.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRepository, ProfileRepository])],
+  imports: [TypeOrmModule.forFeature([UserRepository])],
   controllers: [AuthController, UserController],
   providers: [AuthService, UserService],
 })

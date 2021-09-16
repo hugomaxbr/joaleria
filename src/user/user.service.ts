@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { genSalt, hash } from 'bcrypt';
-import { ProfileRepository } from 'src/profile/profile.repository';
 import { CreateUserDto } from './dto/createUserDto';
 import { ListUserByIdDto } from './dto/listUserByIdDto';
 import { UpdateUserDto } from './dto/updateUserDto';
@@ -17,9 +16,6 @@ export class UserService {
   constructor(
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
-
-    @InjectRepository(ProfileRepository)
-    private profileRepository: ProfileRepository,
   ) {}
 
   private async hashPassword(password: string, salt: string): Promise<string> {
@@ -71,31 +67,8 @@ export class UserService {
       throw new NotFoundException('User not found');
     }
 
-    const profile = await this.profileRepository.findOneProfile(
-      updateUserDto.profile_id,
-    );
-
-    if (!profile) {
-      throw new NotFoundException('Profile not found');
-    }
-
-    // if (updateUserDto.password) {
-    //   if (updateUserDto.password !== updateUserDto.confirm_password) {
-    //     throw new NotFoundException('Password do not match');
-    //   }
-    //   updateUserDto.confirm_password = undefined;
-
-    //   const salt = await genSalt();
-    //   updateUserDto.password = await this.hashPassword(
-    //     updateUserDto.password,
-    //     salt,
-    //   );
-    // }
-
     const updatedUser = Object.assign(user, updateUserDto);
-    delete updatedUser.profile;
     delete updatedUser.updated_at;
-    console.log(updatedUser);
 
     await this.userRepository.updateUser(updatedUser);
   }
