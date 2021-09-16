@@ -2,7 +2,6 @@ import {
   IsEmail,
   IsNumber,
   IsString,
-  IsUUID,
   Matches,
   MaxLength,
   MinLength,
