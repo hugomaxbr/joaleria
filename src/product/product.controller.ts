@@ -8,6 +8,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/createProductDto';
+import { Product } from './entities/product.entity';
 import { ProductService } from './product.service';
 
 @Controller('products')
@@ -23,7 +24,7 @@ export class ProductController {
   }
 
   @Get()
-  async listProfiles(): Promise<void> {
-    console.log('Teste');
+  async listProfiles(): Promise<Product[]> {
+    return this.productService.list();
   }
 }

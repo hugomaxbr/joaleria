@@ -2,14 +2,15 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Generated,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { v4 as uuidV4 } from 'uuid';
 
 @Entity('profiles')
 class Profile {
   @PrimaryColumn()
+  @Generated('increment')
   id: string;
 
   @Column()
@@ -20,12 +21,6 @@ class Profile {
 
   @CreateDateColumn()
   created_at: Date;
-
-  constructor() {
-    if (!this.id) {
-      this.id = uuidV4();
-    }
-  }
 }
 
 export { Profile };

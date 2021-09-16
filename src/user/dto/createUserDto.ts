@@ -1,5 +1,6 @@
 import {
   IsEmail,
+  IsNumber,
   IsString,
   IsUUID,
   Matches,
@@ -16,8 +17,8 @@ export class CreateUserDto {
   @IsOnlyDate()
   birth_date: Date;
 
-  @IsUUID()
-  profile_id: string;
+  @IsNumber()
+  profile_id: number;
 
   @IsString()
   cpf: string;

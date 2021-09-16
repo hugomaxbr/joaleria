@@ -8,7 +8,7 @@ export class CreateProfile1630290193213 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'serial',
             isPrimary: true,
           },
           {

@@ -25,7 +25,7 @@ class User {
   profile: Profile;
 
   @Column()
-  profile_id: string;
+  profile_id: number;
 
   @Column()
   birth_date: Date;

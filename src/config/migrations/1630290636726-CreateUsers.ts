@@ -42,7 +42,7 @@ export class CreateUsers1630290636726 implements MigrationInterface {
           },
           {
             name: 'profile_id',
-            type: 'uuid',
+            type: 'int',
           },
           {
             name: 'updated_at',

@@ -9,4 +9,8 @@ export class ProductRepository extends Repository<Product> {
 
     await this.save(profile);
   }
+
+  async listAll(): Promise<Product[]> {
+    return this.find();
+  }
 }
