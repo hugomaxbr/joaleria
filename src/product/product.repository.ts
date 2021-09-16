@@ -23,4 +23,8 @@ export class ProductRepository extends Repository<Product> {
   async updateProduct(data: Product): Promise<Product> {
     return this.save(data);
   }
+
+  async deleteProduct(data: Product): Promise<void> {
+    await this.remove(data);
+  }
 }

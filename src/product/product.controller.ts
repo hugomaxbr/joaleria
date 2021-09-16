@@ -2,6 +2,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -44,5 +45,12 @@ export class ProductController {
     @Body(ValidationPipe) createProductDto: CreateProductDto,
   ): Promise<Product> {
     return this.productService.updateById(createProductDto, paramProductIdDto);
+  }
+
+  @Delete(':id')
+  async deleteProduct(
+    @Param(ValidationPipe) paramProductIdDto: ParamProductIdDto,
+  ): Promise<void> {
+    return this.productService.deleteById(paramProductIdDto);
   }
 }
