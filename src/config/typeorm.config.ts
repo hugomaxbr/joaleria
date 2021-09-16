@@ -13,8 +13,8 @@ export default {
   entities: [User, Profile, Product],
   synchronize: false,
   logging: true,
-  migrations: ['./src/migrations/*.ts'],
+  migrations: [__dirname + '/migrations/**/*.ts'],
   cli: {
-    migrationsDir: './src/migrations',
+    migrationsDir: './src/config/migrations',
   },
 } as TypeOrmModuleOptions;
