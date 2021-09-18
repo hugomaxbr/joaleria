@@ -15,6 +15,7 @@ import { CreateUserDto } from './dto/createUserDto';
 import { User } from './entities/user.entity';
 import { ListUserByIdDto } from './dto/listUserByIdDto';
 import { UpdateUserDto } from './dto/updateUserDto';
+import { GetAuthenticatedUser } from './decorators/auth.decorator';
 
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -29,7 +30,7 @@ export class UserController {
   }
 
   @Get()
-  listUsers(): Promise<User[]> {
+  listUsers(@GetAuthenticatedUser() _: string): Promise<User[]> {
     return this.userService.list();
   }
 

@@ -1,11 +1,12 @@
 import {
   IsEmail,
-  IsNumber,
+  IsEnum,
   IsString,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Role } from '../enums/role.enum';
 import { IsOnlyDate } from '../validators/IsOnlyDate';
 
 export class CreateUserDto {
@@ -16,11 +17,11 @@ export class CreateUserDto {
   @IsOnlyDate()
   birth_date: Date;
 
-  @IsNumber()
-  profile_id: number;
-
   @IsString()
   cpf: string;
+
+  @IsEnum(Role)
+  role: Role;
 
   @IsEmail()
   email: string;

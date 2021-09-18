@@ -16,11 +16,11 @@ export class UserRepository extends Repository<User> {
   }
 
   async findById(id: string): Promise<User> {
-    return this.findOne(id, { relations: ['profile'] });
+    return this.findOne(id);
   }
 
   async listAllUsers(): Promise<User[]> {
-    return this.find({ relations: ['profile'] });
+    return this.find();
   }
 
   async createUserAdmin(user: User): Promise<void> {
@@ -32,7 +32,7 @@ export class UserRepository extends Repository<User> {
   }
 
   async SignUp(createUserDto: CreateUserDto): Promise<void> {
-    const { email, password, cpf, birth_date, name } = createUserDto;
+    const { email, password, cpf, birth_date, name, role } = createUserDto;
 
     const user = new User();
 
@@ -42,6 +42,7 @@ export class UserRepository extends Repository<User> {
     user.email = email;
     user.salt = await genSalt();
     user.password = await this.hashPassword(password, user.salt);
+    user.role = role;
 
     const found = await this.findOne({ email: user.email });
 
