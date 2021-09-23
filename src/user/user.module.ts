@@ -5,9 +5,10 @@ import { AuthService } from './auth.service';
 import { UserRepository } from './user.repository';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { UploadModule } from 'src/upload/upload.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRepository])],
+  imports: [TypeOrmModule.forFeature([UserRepository]), UploadModule],
   controllers: [AuthController, UserController],
   providers: [AuthService, UserService],
 })
