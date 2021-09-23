@@ -25,6 +25,9 @@ class User {
   birth_date: Date;
 
   @Column()
+  avatar_url: string;
+
+  @Column()
   cpf: string;
 
   @Column()
