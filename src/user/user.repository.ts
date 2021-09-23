@@ -69,4 +69,9 @@ export class UserRepository extends Repository<User> {
       return null;
     }
   }
+
+  insertProfilePic(fileName: string, user: User) {
+    user.avatar_url = fileName;
+    return this.save(user);
+  }
 }
