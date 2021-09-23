@@ -10,12 +10,14 @@ import { ListUserByIdDto } from './dto/listUserByIdDto';
 import { UpdateUserDto } from './dto/updateUserDto';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
+import { LocalService } from '../upload/local.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(UserRepository)
     private userRepository: UserRepository,
+    private localService: LocalService,
   ) {}
 
   private async hashPassword(password: string, salt: string): Promise<string> {
@@ -71,5 +73,17 @@ export class UserService {
     delete updatedUser.updated_at;
 
     await this.userRepository.updateUser(updatedUser);
+  }
+
+  async insertProfilePic(avatar: Express.Multer.File, id: string) {
+    const user = await this.userRepository.findOne({ id });
+
+    if (!user) {
+      throw new NotFoundException('User does not exist');
+    }
+
+    const fileName = await this.localService.uploadFile(avatar, id);
+
+    return this.userRepository.insertProfilePic(fileName, user);
   }
 }
