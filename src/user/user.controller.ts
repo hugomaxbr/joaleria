@@ -9,6 +9,7 @@ import {
   ClassSerializerInterceptor,
   Delete,
   Put,
+  UploadedFile,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/createUserDto';
@@ -16,6 +17,7 @@ import { User } from './entities/user.entity';
 import { ListUserByIdDto } from './dto/listUserByIdDto';
 import { UpdateUserDto } from './dto/updateUserDto';
 import { GetAuthenticatedUser } from './decorators/auth.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -54,5 +56,14 @@ export class UserController {
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
   ): Promise<void> {
     await this.userService.update(updateUserDto, listUserByIdDto);
+  }
+
+  @UseInterceptors(FileInterceptor('avatar'))
+  @Post('avatar')
+  async insertProfilePic(
+    @UploadedFile() avatar: Express.Multer.File,
+    @GetAuthenticatedUser() id: string,
+  ) {
+    return this.userService.insertProfilePic(avatar, id);
   }
 }
