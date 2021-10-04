@@ -1,12 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { compare } from 'bcrypt';
+import { sign } from 'jsonwebtoken';
 import { jwt } from 'src/config';
 import { AuthCredentialsDto } from './dto/authCredentialsDto';
 import { CreateUserDto } from './dto/createUserDto';
+import { responseSignInDto } from './interface/responseSignInDto';
 import { UserRepository } from './user.repository';
-import { compare } from 'bcrypt';
-import { sign } from 'jsonwebtoken';
-import { Credential } from './interface/credential.interface';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +21,7 @@ export class AuthService {
 
   async authenticateUser(
     authCredentialsDTO: AuthCredentialsDto,
-  ): Promise<Credential> {
+  ): Promise<responseSignInDto> {
     const { email, password } = authCredentialsDTO;
 
     const user = await this.userRepository.findByEmail(email);
@@ -44,7 +44,7 @@ export class AuthService {
     });
 
     return {
-      id: user.id,
+      name: user.name,
       token,
     };
   }

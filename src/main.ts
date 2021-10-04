@@ -6,5 +6,10 @@ async function bootstrap() {
   app.enableCors();
   await app.listen(3333);
   console.log('Listenig on http://localhost:3333');
+
+  app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+    next();
+  });
 }
 bootstrap();

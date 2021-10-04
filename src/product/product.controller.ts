@@ -10,6 +10,7 @@ import {
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
+import { GetAuthenticatedUser } from 'src/user/decorators/auth.decorator';
 import { CreateProductDto } from './dto/createProductDto';
 import { ParamProductIdDto } from './dto/paramProductIdDto';
 import { Product } from './entities/product.entity';
@@ -23,12 +24,13 @@ export class ProductController {
   @Post()
   async createProduct(
     @Body(ValidationPipe) createProductDto: CreateProductDto,
+    @GetAuthenticatedUser() _: string,
   ): Promise<Product> {
     return this.productService.create(createProductDto);
   }
 
   @Get()
-  async listProduct(): Promise<Product[]> {
+  async listProduct(@GetAuthenticatedUser() _: string): Promise<Product[]> {
     return this.productService.list();
   }
 
