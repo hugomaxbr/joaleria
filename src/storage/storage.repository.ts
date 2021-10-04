@@ -11,4 +11,8 @@ export class StorageRepository extends Repository<Storage> {
 
     return storage;
   }
+
+  async listAll(): Promise<Storage[]> {
+    return this.find();
+  }
 }

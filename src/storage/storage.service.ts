@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { ProductRepository } from 'src/product/product.repository';
 import { CreateStorageDto } from './dto/CreateStorageDto';
+import { Storage } from './entities/storage.entity';
 import { StorageRepository } from './storage.repository';
 
 @Injectable()
@@ -21,7 +22,7 @@ export class StorageService {
   async create(
     createStorageDto: CreateStorageDto,
     user_id: string,
-  ): Promise<any> {
+  ): Promise<Storage> {
     const product = await this.productRepository.listById(
       createStorageDto.product_id,
     );
@@ -53,5 +54,9 @@ export class StorageService {
     });
 
     return this.storageRepository.createStorage(storage);
+  }
+
+  async list(): Promise<Storage[]> {
+    return this.storageRepository.listAll();
   }
 }

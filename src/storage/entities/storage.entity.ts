@@ -1,5 +1,5 @@
-import { Product } from 'src/product/entities/product.entity';
-import { User } from 'src/user/entities/user.entity';
+import { Product } from '../../product/entities/product.entity';
+import { User } from '../../user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
@@ -41,6 +41,9 @@ class Storage {
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'product_id' })
   product: Product;
+
+  @Column()
+  product_quantity: number;
 
   constructor() {
     if (!this.id) {

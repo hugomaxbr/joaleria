@@ -2,6 +2,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Get,
   Post,
   UseInterceptors,
   ValidationPipe,
@@ -22,5 +23,10 @@ export class StorageController {
     @GetAuthenticatedUser() user_id: string,
   ): Promise<Storage> {
     return this.storageService.create(createStorageDto, user_id);
+  }
+
+  @Get()
+  async listStorage(@GetAuthenticatedUser() _: string): Promise<Storage[]> {
+    return this.storageService.list();
   }
 }
