@@ -27,6 +27,7 @@ export class UserController {
   @Post()
   async createUser(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
+    @GetAuthenticatedUser() _: string,
   ): Promise<void> {
     await this.userService.create(createUserDto);
   }
@@ -39,6 +40,7 @@ export class UserController {
   @Get(':id')
   listUserById(
     @Param(ValidationPipe) listUserByIdDto: ListUserByIdDto,
+    @GetAuthenticatedUser() _: string,
   ): Promise<User> {
     return this.userService.findOne(listUserByIdDto);
   }
@@ -46,6 +48,7 @@ export class UserController {
   @Delete(':id')
   async deleteUser(
     @Param(ValidationPipe) deleteUserByDto: ListUserByIdDto,
+    @GetAuthenticatedUser() _: string,
   ): Promise<void> {
     await this.userService.delete(deleteUserByDto);
   }
@@ -54,6 +57,7 @@ export class UserController {
   async updateUser(
     @Param(ValidationPipe) listUserByIdDto: ListUserByIdDto,
     @Body(ValidationPipe) updateUserDto: UpdateUserDto,
+    @GetAuthenticatedUser() _: string,
   ): Promise<void> {
     await this.userService.update(updateUserDto, listUserByIdDto);
   }

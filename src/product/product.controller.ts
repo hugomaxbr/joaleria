@@ -39,6 +39,7 @@ export class ProductController {
   @Get(':id')
   async getProduct(
     @Param(ValidationPipe) paramProductIdDto: ParamProductIdDto,
+    @GetAuthenticatedUser() _: string,
   ): Promise<Product> {
     return this.productService.listById(paramProductIdDto);
   }
@@ -47,6 +48,7 @@ export class ProductController {
   async alterProduct(
     @Param(ValidationPipe) paramProductIdDto: ParamProductIdDto,
     @Body(ValidationPipe) createProductDto: CreateProductDto,
+    @GetAuthenticatedUser() _: string,
   ): Promise<Product> {
     return this.productService.updateById(createProductDto, paramProductIdDto);
   }
@@ -54,6 +56,7 @@ export class ProductController {
   @Delete(':id')
   async deleteProduct(
     @Param(ValidationPipe) paramProductIdDto: ParamProductIdDto,
+    @GetAuthenticatedUser() _: string,
   ): Promise<void> {
     return this.productService.deleteById(paramProductIdDto);
   }
