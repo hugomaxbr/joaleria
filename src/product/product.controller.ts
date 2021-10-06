@@ -7,9 +7,14 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
+<<<<<<< HEAD
+import { FileInterceptor } from '@nestjs/platform-express';
+=======
+>>>>>>> b2c88ededade87981299b5208756e142760c252e
 import { GetAuthenticatedUser } from 'src/user/decorators/auth.decorator';
 import { CreateProductDto } from './dto/createProductDto';
 import { ParamProductIdDto } from './dto/paramProductIdDto';
@@ -54,5 +59,15 @@ export class ProductController {
     @Param(ValidationPipe) paramProductIdDto: ParamProductIdDto,
   ): Promise<void> {
     return this.productService.deleteById(paramProductIdDto);
+  }
+
+  @UseInterceptors(FileInterceptor('picture'))
+  @Post('productPicture')
+  async insertProfilePic(
+    @UploadedFile() picture: Express.Multer.File,
+    productId: string,
+    @GetAuthenticatedUser() _: string,
+  ) {
+    return this.productService.insertPicture(picture, productId);
   }
 }

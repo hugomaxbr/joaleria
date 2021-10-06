@@ -24,6 +24,9 @@ class Product {
   @Column()
   current_quantity: number;
 
+  @Column()
+  picture_url: string;
+
   @UpdateDateColumn()
   updated_at: Date;
 
