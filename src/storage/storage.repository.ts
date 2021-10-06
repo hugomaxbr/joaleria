@@ -13,6 +13,13 @@ export class StorageRepository extends Repository<Storage> {
   }
 
   async listAll(): Promise<Storage[]> {
-    return this.find();
+    return this.find({ relations: ['user', 'product'] });
+  }
+
+  async findStoragesByAction(action: number): Promise<Storage[]> {
+    return this.find({
+      relations: ['user', 'product'],
+      where: { action: action },
+    });
   }
 }

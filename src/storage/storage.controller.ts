@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Post,
+  Query,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
@@ -26,7 +27,14 @@ export class StorageController {
   }
 
   @Get()
-  async listStorage(@GetAuthenticatedUser() _: string): Promise<Storage[]> {
-    return this.storageService.list();
+  async listStorage(
+    @GetAuthenticatedUser() _: string,
+    @Query('action') action: number,
+  ): Promise<Storage[]> {
+    if (!action) {
+      return this.storageService.list();
+    }
+
+    return this.storageService.findStoragesByAction(action);
   }
 }

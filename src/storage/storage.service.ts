@@ -59,4 +59,8 @@ export class StorageService {
   async list(): Promise<Storage[]> {
     return this.storageRepository.listAll();
   }
+
+  async findStoragesByAction(action: number): Promise<Storage[]> {
+    return this.storageRepository.findStoragesByAction(action);
+  }
 }
