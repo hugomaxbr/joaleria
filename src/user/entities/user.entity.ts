@@ -1,18 +1,16 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { Profile } from "../../profile/entities/profile.entity";
-import { v4 as uuidV4 } from "uuid";
-import { Exclude } from "class-transformer";
+} from 'typeorm';
+import { v4 as uuidV4 } from 'uuid';
+import { Role } from '../enums/role.enum';
 
-@Entity("users")
+@Entity('users')
 class User {
   @PrimaryColumn()
   id: string;
@@ -20,15 +18,14 @@ class User {
   @Column()
   name: string;
 
-  @OneToOne(() => Profile)
-  @JoinColumn({ name: "profile_id" })
-  profile: Profile;
-
   @Column()
-  profile_id: string;
+  role: Role;
 
   @Column()
   birth_date: Date;
+
+  @Column()
+  avatar_url: string;
 
   @Column()
   cpf: string;
@@ -56,7 +53,7 @@ class User {
     }
   }
 
-  async validatePassword(password: string): Promise<Boolean> {
+  async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);
     return hash === this.password;
   }

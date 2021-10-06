@@ -4,16 +4,25 @@ import {
   Entity,
   PrimaryColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { v4 as uuidV4 } from "uuid";
+} from 'typeorm';
+import { v4 as uuidV4 } from 'uuid';
 
-@Entity("profiles")
-class Profile {
+@Entity('products')
+class Product {
   @PrimaryColumn()
   id: string;
 
   @Column()
   description: string;
+
+  @Column()
+  details: string;
+
+  @Column()
+  value: string;
+
+  @Column()
+  current_quantity: number;
 
   @UpdateDateColumn()
   updated_at: Date;
@@ -28,4 +37,4 @@ class Profile {
   }
 }
 
-export { Profile };
+export { Product };

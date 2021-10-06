@@ -1,12 +1,13 @@
 import {
   IsEmail,
+  IsEnum,
   IsString,
-  IsUUID,
   Matches,
   MaxLength,
   MinLength,
-} from "class-validator";
-import { IsOnlyDate } from "../validators/IsOnlyDate";
+} from 'class-validator';
+import { Role } from '../enums/role.enum';
+import { IsOnlyDate } from '../validators/IsOnlyDate';
 
 export class CreateUserDto {
   @IsString()
@@ -16,11 +17,11 @@ export class CreateUserDto {
   @IsOnlyDate()
   birth_date: Date;
 
-  @IsUUID()
-  profile_id: string;
-
   @IsString()
   cpf: string;
+
+  @IsEnum(Role)
+  role: Role;
 
   @IsEmail()
   email: string;
@@ -29,7 +30,7 @@ export class CreateUserDto {
   @MinLength(8)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: "Password too weak",
+    message: 'Password too weak',
   })
   password: string;
 }
