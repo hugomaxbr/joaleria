@@ -27,4 +27,9 @@ export class ProductRepository extends Repository<Product> {
   async deleteProduct(data: Product): Promise<void> {
     await this.remove(data);
   }
+
+  insertPicture(fileName: string, product: Product) {
+    product.picture_url = fileName;
+    return this.save(product);
+  }
 }
