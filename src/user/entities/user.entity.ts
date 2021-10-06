@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -7,7 +8,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
-import { Exclude } from 'class-transformer';
 import { Role } from '../enums/role.enum';
 
 @Entity('users')
