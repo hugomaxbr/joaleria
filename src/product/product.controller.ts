@@ -11,10 +11,7 @@ import {
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
-<<<<<<< HEAD
 import { FileInterceptor } from '@nestjs/platform-express';
-=======
->>>>>>> b2c88ededade87981299b5208756e142760c252e
 import { GetAuthenticatedUser } from 'src/user/decorators/auth.decorator';
 import { CreateProductDto } from './dto/createProductDto';
 import { ParamProductIdDto } from './dto/paramProductIdDto';
