@@ -27,13 +27,13 @@ export class AuthService {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException('Invalid Credentials');
+      throw new UnauthorizedException('Email ou senha inválidos');
     }
 
     const passwdMatched = await compare(password, user.password);
 
     if (!passwdMatched) {
-      throw new UnauthorizedException('Invalid Credentials');
+      throw new UnauthorizedException('Email ou senha inválidos');
     }
 
     const { secret, expiresIn } = jwt;
@@ -46,6 +46,7 @@ export class AuthService {
     return {
       name: user.name,
       token,
+      role: user.role,
     };
   }
 }

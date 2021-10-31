@@ -32,7 +32,7 @@ export class UserRepository extends Repository<User> {
   }
 
   async SignUp(createUserDto: CreateUserDto): Promise<void> {
-    const { email, password, cpf, birth_date, name, role } = createUserDto;
+    const { email, password, cpf, birth_date, name } = createUserDto;
 
     const user = new User();
 
@@ -42,12 +42,12 @@ export class UserRepository extends Repository<User> {
     user.email = email;
     user.salt = await genSalt();
     user.password = await this.hashPassword(password, user.salt);
-    user.role = role;
+    user.role = 1;
 
     const found = await this.findOne({ email: user.email });
 
     if (found) {
-      throw new ConflictException('Email already registered');
+      throw new ConflictException('Email já está cadastrado');
     }
 
     await this.save(user);
