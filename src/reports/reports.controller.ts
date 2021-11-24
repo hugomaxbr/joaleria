@@ -13,7 +13,7 @@ export class ReportsController {
   constructor(private reportsService: ReportsService) {}
 
   @Get('count')
-  async listProduct(@GetAuthenticatedUser() _: string): Promise<any> {
+  async countData(@GetAuthenticatedUser() _: string): Promise<any> {
     return this.reportsService.count();
   }
 }
