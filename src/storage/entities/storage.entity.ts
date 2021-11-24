@@ -45,6 +45,9 @@ class Storage {
   @Column()
   product_quantity: number;
 
+  @CreateDateColumn()
+  created_at: Date;
+
   constructor() {
     if (!this.id) {
       this.id = uuidV4();

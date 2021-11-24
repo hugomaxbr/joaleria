@@ -32,4 +32,8 @@ export class ProductRepository extends Repository<Product> {
     product.picture_url = fileName;
     return this.save(product);
   }
+
+  async countProducts(): Promise<number> {
+    return this.count();
+  }
 }

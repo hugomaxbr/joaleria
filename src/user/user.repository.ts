@@ -74,4 +74,8 @@ export class UserRepository extends Repository<User> {
     user.avatar_url = fileName;
     return this.save(user);
   }
+
+  async countUsers(): Promise<number> {
+    return this.count();
+  }
 }
