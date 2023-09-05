@@ -28,6 +28,7 @@ export class UserController {
   async createUser(
     @Body(ValidationPipe) createUserDto: CreateUserDto,
   ): Promise<void> {
+    console.log("teste");
     await this.userService.create(createUserDto);
   }
 
