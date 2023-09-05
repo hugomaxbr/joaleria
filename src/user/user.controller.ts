@@ -29,6 +29,7 @@ export class UserController {
     @Body(ValidationPipe) createUserDto: CreateUserDto,
   ): Promise<void> {
     console.log("teste");
+    console.log("to com fome");
     await this.userService.create(createUserDto);
   }
 
